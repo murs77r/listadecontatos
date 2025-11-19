@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 
+    Este é um arquivo FXML (FX Markup Language), um formato baseado em XML para definir
+    a interface do usuário de uma aplicação JavaFX. Ele separa o layout da lógica da aplicação.
+-->
+
+<!-- Instruções de processamento para importar as classes JavaFX necessárias para os componentes da UI. -->
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -9,36 +15,76 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- 
+    O elemento raiz da nossa interface. AnchorPane permite que os filhos sejam "ancorados"
+    nas bordas do painel.
+    - xmlns e xmlns:fx definem os namespaces para JavaFX.
+    - fx:controller especifica a classe controller que gerenciará os eventos e dados desta view.
+-->
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.listadecontatos.controller.ContactController">
    <children>
-      <SplitPane dividerPositions="0.4" layoutX="200.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <!-- 
+          SplitPane divide a UI em duas ou mais seções redimensionáveis.
+          - dividerPositions define a posição inicial do divisor (40% para a esquerda, 60% para a direita).
+          - As âncoras (AnchorPane.bottomAnchor, etc.) fazem o SplitPane preencher todo o AnchorPane pai.
+      -->
+      <SplitPane dividerPositions="0.4" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <!-- Painel esquerdo do SplitPane, que conterá a lista de contatos. -->
+          <AnchorPane>
                <children>
-                  <ListView fx:id="contactListView" layoutX="18.0" layoutY="14.0" prefHeight="398.0" prefWidth="236.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <!-- 
+                      ListView para exibir a lista de contatos.
+                      - fx:id="contactListView" é o ID que permite injetar este componente no controller.
+                      - As âncoras fazem a ListView preencher todo o AnchorPane pai.
+                  -->
+                  <ListView fx:id="contactListView" prefHeight="398.0" prefWidth="236.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <!-- Painel direito do SplitPane, que conterá o formulário de edição/adição. -->
+          <AnchorPane>
                <children>
-                  <VBox layoutX="14.0" layoutY="14.0" spacing="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <!-- 
+                      VBox organiza seus filhos em uma única coluna vertical.
+                      - spacing="10.0" define um espaçamento de 10 pixels entre cada filho.
+                      - As âncoras definem uma margem de 20 pixels das bordas do painel.
+                  -->
+                  <VBox spacing="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <children>
+                        <!-- Título do formulário. -->
                         <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Formulário de Contato" />
+                        
+                        <!-- Campo para o nome do contato. -->
                         <Label text="Nome Completo:" />
                         <TextField fx:id="nameField" promptText="Ex: Ana Silva" />
+                        
+                        <!-- Campo para o telefone do contato. -->
                         <Label text="Telefone com DDD:" />
                         <TextField fx:id="phoneField" promptText="(11) 99999-8888" />
+                        
+                        <!-- 
+                            HBox organiza seus filhos em uma única linha horizontal.
+                            Usado para agrupar os botões de ação.
+                        -->
                         <HBox spacing="10.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleAddButton" text="Adicionar" />
-                              <Button mnemonicParsing="false" onAction="#handleSaveButton" text="Salvar Edição" />
+                              <!-- Botão Adicionar. onAction="#handleAddButton" define que o método handleAddButton no controller será chamado ao clicar. -->
+                              <Button onAction="#handleAddButton" text="Adicionar" />
+                              <!-- Botão Salvar Edição. onAction="#handleSaveButton" chama o método correspondente no controller. -->
+                              <Button onAction="#handleSaveButton" text="Salvar Edição" />
                            </children>
                         </HBox>
+                        
                         <HBox spacing="10.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleDeleteButton" style="-fx-background-color: #ffcccc;" text="Excluir" />
-                              <Button mnemonicParsing="false" onAction="#handleClearButton" text="Limpar" />
+                              <!-- Botão Excluir. onAction="#handleDeleteButton" chama o método correspondente. -->
+                              <Button onAction="#handleDeleteButton" style="-fx-background-color: #ffcccc;" text="Excluir" />
+                              <!-- Botão Limpar. onAction="#handleClearButton" chama o método correspondente. -->
+                              <Button onAction="#handleClearButton" text="Limpar" />
                            </children>
                         </HBox>
+                        
+                        <!-- Label para exibir mensagens de status (sucesso, erro, etc.). -->
                         <Label fx:id="statusLabel" wrapText="true" />
                      </children>
                   </VBox>
