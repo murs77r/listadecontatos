@@ -33,7 +33,7 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             
             // Configurações da janela principal (Stage).
-            primaryStage.setTitle("Lista de Contatos JavaFX"); // Define o título da janela.
+            primaryStage.setTitle("Lista de Contatos"); // Define o título da janela.
             primaryStage.setScene(scene); // Associa a cena à janela.
             primaryStage.setResizable(false); // Impede que o usuário redimensione a janela.
             primaryStage.show(); // Exibe a janela para o usuário.
